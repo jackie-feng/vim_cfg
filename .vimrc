@@ -63,11 +63,15 @@ Plug 'gregsexton/gitv'                                                          
 Plug 'Valloric/YouCompleteMe'                                                   " 代码补全
 Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
 
+" 设置项目根目录
+Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-rails'                                                          " rails 插件
 Plug 'vim-ruby/vim-ruby'
 Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim', { 'on': 'Files' }
+Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
+Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
 " color schema
 Plug 'gosukiwi/vim-atom-dark'
@@ -83,6 +87,37 @@ let ayucolor="dark"   " for dark version of theme
 colorscheme molokai
 
 syntax enable
+" ------------- gocode ---------------
+let g:go_echo_go_info = 0
+
+" --------------- vim-polyglot -----------
+let g:polyglot_disabled = ['markdown']
+
+" -------------- fzf + ag -----------------
+nnoremap <Leader>\ :Ack!<Space>
+command! -bang -nargs=* Ag
+      \ call fzf#vim#ack(<q-args>,
+      \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+      \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \                 <bang>0)
+
+" --------------- ctrlsf ----------------
+let g:ctrlsf_context = '-B 2 -A 2'
+let g:ctrlsf_default_root = 'project'
+let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_winsize = '30%'
+let g:ctrlsf_selected_line_hl = 'op'
+let g:ctrlsf_auto_focus = {
+       \ "at" : "start",
+       \ }
+let g:ctrlsf_position = 'left'
+let g:ctrlsf_mapping = {
+      \ "popen": { "key": ["<C-z>", "p"], "suffix": "j" },
+      \ "popenf": { "key": "P", "suffix": "<C-w>pk"},
+      \ "openb": { "key": "o", "suffix": "<C-w>p" },
+      \ "next": { "key": ["n", "<C-j>"], "suffix": "<C-z>"},
+      \ "prev": { "key": ["N", "<C-k>"], "suffix": "<C-z>" },
+      \ }
 
 " --------------- nerdcommenter --------------
 " Add spaces after comment delimiters by default
@@ -113,6 +148,7 @@ let g:NERDToggleCheckAllLines = 1
 " --------------- nerdtree ---------------
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeShowHidden=1
 
 " --------------- nerdtree-git-plugin --------------
 let g:NERDTreeIndicatorMapCustom = {
@@ -135,9 +171,12 @@ let g:NERDTreeIndicatorMapCustom = {
 " -------------fzf and ag-settings---------------------
 nmap <C-o> :tabnew<CR>:Files<CR>
 nmap <C-p> :Files<CR>
+nmap <Leader>s :Ack!<CR>
 if executable('ag')
     let g:ackprg = 'ag --vimgrep --ignore node_modules --ignore dist'
+    let g:ackpreview = 15
 endif
+
 " search lines in files
 cnoreabbrev Ack Ack!
 
@@ -165,7 +204,7 @@ nmap <Leader>y "*y
 nmap <Leader>p "*gp
 nmap <Leader><space> :nohlsearch<cr>
 map <Leader>t :NERDTreeToggle<CR>
-nnoremap <Leader>f :Ack!<Space>
+nnoremap <Leader>f :CtrlSF<Space>
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 nnoremap <C-\> gt 
 nnoremap <Leader>m :tabc<CR>
