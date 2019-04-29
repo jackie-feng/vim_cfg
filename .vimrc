@@ -8,7 +8,8 @@ set nu!                      " 显示行号
 set ruler                    " 右下角显示光标位置的状态行
 set incsearch                " 开启实时搜索功能
 set hlsearch                 " 开启高亮显示结果
-set nowrapscan               " 搜索到文件两端时不重新搜索
+" set nowrapscan               " 搜索到文件两端时不重新搜索
+set autoread                 " 自动读取重新载入
 set nocompatible             " 关闭兼容模式
 set hidden                   " 允许在有未保存的修改时切换缓冲区
 set autochdir                " 设定文件浏览器目录为当前目录
@@ -23,9 +24,10 @@ set list                     " 显示特殊字符，其中Tab使用高亮~代替
 set listchars=tab:›\ ,trail:•,extends:>,precedes:<,nbsp:.
 set expandtab                " 将 Tab 自动转化成空格 [需要输入真正的 Tab 符时，使用 Ctrl+V + Tab]
 set updatetime=50
-set mouse=a
+set mouse=a                  " 鼠标可用
 set clipboard=unnamed        " 设置剪贴板
 
+let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-7,latin1
@@ -77,6 +79,7 @@ Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' 
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim' " or other package manager
+Plug 'altercation/solarized'
 call plug#end()
 
 
@@ -87,6 +90,18 @@ let ayucolor="dark"   " for dark version of theme
 colorscheme molokai
 
 syntax enable
+" ---------- lightline ------------
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ }
+" ------------YouCompleteMe ---------
+let g:ycm_error_symbol = '>>'
+let g:ycm_warning_symbol = '>>'
+let g:ycm_auto_trigger = 0   " 自动弹出提示
+" let g:ycm_always_populate_location_list = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " ------------- gocode ---------------
 let g:go_echo_go_info = 0
 
@@ -217,6 +232,10 @@ nnoremap <C-n> :tabnew<CR>
 nnoremap <tab> <C-W><C-W>
 nnoremap <C-S-UP> dd<UP>P
 nnoremap <C-S-DOWN> ddp
+nnoremap <C-h> ^
+nnoremap <C-l> $
+imap <C-S-UP> <esc>dd<UP>Pi
+imap <C-S-DOWN> <esc>ddpi
 
 " ----------------- ctags -----------------------
 let g:tagbar_type_go = {
@@ -259,17 +278,21 @@ nmap <c-t> :pop<cr>
 " Ctrl + U            简化全能补全按键
 imap <c-u> <c-x><c-o>
 
+" 编辑模式下也能翻页
+imap <c-b> <esc><c-b>i
+imap <c-f> <esc><c-f>i
+
 " Ctrl + H            光标移当前行行首[插入模式]、切换左窗口[Normal 模式]
-imap <c-h> <esc>I
+imap <c-h> <left>
 
 " Ctrl + J            光标移下一行行首[插入模式]、切换下窗口[Normal 模式]
-imap <c-j> <esc><down>I
+imap <c-j> <down>
 
 " Ctrl + K            光标移上一行行尾[插入模式]、切换上窗口[Normal 模式]
-imap <c-k> <esc><up>A
+imap <c-k> <up>
 
 " Ctrl + L            光标移当前行行尾[插入模式]、切换右窗口[Normal 模式]
-imap <c-l> <esc>A
+imap <c-l> <right>
 
 " \gd                 打开 Git 文件对比模式 [竖直] [GitGutter 插件]
 nmap <leader>gd :Gdiff<cr>
