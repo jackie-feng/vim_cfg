@@ -1,4 +1,4 @@
-
+set langmenu=en              " 设置界面为英文
 set backspace=2              " 设置退格键可用
 set autoindent               " 自动对齐
 set ai!                      " 设置自动缩进
@@ -218,7 +218,7 @@ let g:go_decls_includes = "func,type"
 nmap <Leader>y "*y
 nmap <Leader>p "*gp
 nmap <Leader><space> :nohlsearch<cr>
-map <Leader>t :NERDTreeToggle<CR>
+nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 nnoremap <C-\> gt 
@@ -299,4 +299,6 @@ nmap <leader>gd :Gdiff<cr>
 
 " \rt                 一键替换全部 Tab 为空格
 nmap <leader>rt <esc>:retab<cr>
+" 超过120的行宽显示灰色
+highlight ColorColumn guibg=#2d2d2d ctermbg=0
 

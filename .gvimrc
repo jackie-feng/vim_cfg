@@ -1,5 +1,5 @@
 set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set lines=70 columns=140
+set lines=70 columns=160
 
 set foldenable
 set foldmethod=indent
