@@ -213,30 +213,6 @@ let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_def_mode = 'godef'
 let g:go_decls_includes = "func,type"
 
-" ------------------ mapping -------------------
-
-nmap <Leader>y "*y
-nmap <Leader>p "*gp
-nmap <Leader><space> :nohlsearch<cr>
-nmap <Leader>t :NERDTreeToggle<CR>
-nnoremap <Leader>f :CtrlSF<Space>
-nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-nnoremap <C-\> gt 
-nnoremap <Leader>m :tabc<CR>
-nnoremap <Leader>n :tabnew<CR>
-nnoremap <Leader>d :vsp<CR>
-nnoremap <Leader>D :sp<CR>
-nnoremap <Leader>q :q<CR>
-nnoremap <C-m> :tabc<CR>
-nnoremap <C-n> :tabnew<CR>
-nnoremap <tab> <C-W><C-W>
-nnoremap <C-S-UP> dd<UP>P
-nnoremap <C-S-DOWN> ddp
-nnoremap <C-h> ^
-nnoremap <C-l> $
-imap <C-S-UP> <esc>dd<UP>Pi
-imap <C-S-DOWN> <esc>ddpi
-
 " ----------------- ctags -----------------------
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -266,6 +242,49 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
+" ------------------ mapping -------------------
+
+nmap <Leader>y "*y
+nmap <Leader>p "*gp
+nmap <Leader><space> :nohlsearch<cr>
+nmap <Leader>t :NERDTreeToggle<CR>
+nnoremap <Leader>f :CtrlSF<Space>
+nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+nnoremap <C-\> gt
+nnoremap <Leader>m :tabc<CR>
+nnoremap <Leader>n :tabnew<CR>
+nnoremap <Leader>d :vsp<CR>
+nnoremap <Leader>D :sp<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <C-m> :tabc<CR>
+nnoremap <C-n> :tabnew<CR>
+nnoremap <tab> <C-W><C-W>
+nnoremap <C-S-UP> dd<UP>P
+nnoremap <C-S-DOWN> ddp
+nnoremap <C-h> ^
+nnoremap <C-l> $
+imap <C-S-UP> <esc>dd<UP>Pi
+imap <C-S-DOWN> <esc>ddpi
+
+" ------------- macvim 快捷键 -----------
+" command + d
+map <D-d> dd
+imap <D-d> <esc>ddi
+" command + shift + f
+nmap <D-F> :CtrlSF<Space>
+imap <D-F> <esc>:CtrlSF<Space>
+" command + shift + h
+nmap <D-H> v^
+imap <D-H> <esc>v^
+" command + shift + l
+nmap <D-L> v$<left>
+imap <D-L> <esc>v$<left>
+" command + shift + p
+nmap <D-P> :Files<CR>
+imap <D-P> <esc>:Files<CR>
+" command + /
+imap <D-/> <esc>;cc
+nmap <D-/> ;cc
 
 
 " Ctrl + ]            多选择跳转
