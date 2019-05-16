@@ -16,7 +16,7 @@ let ayucolor="mirage"
 let ayucolor="dark"
 " colorscheme Tomorrow-Night-Bright
 
-set guifont=Menlo:h14
+set guifont=Menlo:h15
 " set guifont=Operator\ Mono:h14
 " set guifont=Hack:h16
 " colorscheme atom-dark

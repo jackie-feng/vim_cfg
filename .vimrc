@@ -27,6 +27,9 @@ set updatetime=50
 set mouse=a                  " 鼠标可用
 set clipboard=unnamed        " 设置剪贴板
 
+" 关闭preview预览窗口,YCM的预览窗口也可以用g:ycm_autoclose_preview_window_after_insertion配置,详情:help YCM
+set completeopt-=preview
+
 let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
 set encoding=utf-8
 set fileencoding=utf-8
@@ -58,11 +61,11 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                          
 Plug 'airblade/vim-gitgutter'                                                   " 行号显示改动信息
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle'}                   " 文件树git
 Plug 'sheerun/vim-polyglot'                                                     " 语言包
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                              " golang 工具包
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                              " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
 " Plug 'kien/ctrlp.vim'                                                           " 文件搜索
-Plug 'Valloric/YouCompleteMe'                                                   " 代码补全
+Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
 Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
 
 " 设置项目根目录
@@ -73,7 +76,8 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+" Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+" Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
 " color schema
 Plug 'gosukiwi/vim-atom-dark'
@@ -97,7 +101,7 @@ let g:lightline = {
 " ------------YouCompleteMe ---------
 let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>>'
-let g:ycm_auto_trigger = 0   " 自动弹出提示
+let g:ycm_auto_trigger = 1   " 自动弹出提示
 " let g:ycm_always_populate_location_list = 1
 " let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -109,6 +113,7 @@ let g:go_echo_go_info = 0
 let g:polyglot_disabled = ['markdown']
 
 " -------------- fzf + ag -----------------
+" 感觉👇下面的 ctrlsf 功能更加强大
 nnoremap <Leader>\ :Ack!<Space>
 command! -bang -nargs=* Ag
       \ call fzf#vim#ack(<q-args>,
@@ -127,11 +132,9 @@ let g:ctrlsf_auto_focus = {
        \ }
 let g:ctrlsf_position = 'left'
 let g:ctrlsf_mapping = {
-      \ "popen": { "key": ["<C-z>", "p"], "suffix": "j" },
-      \ "popenf": { "key": "P", "suffix": "<C-w>pk"},
       \ "openb": { "key": "o", "suffix": "<C-w>p" },
-      \ "next": { "key": ["n", "<C-j>"], "suffix": "<C-z>"},
-      \ "prev": { "key": ["N", "<C-k>"], "suffix": "<C-z>" },
+      \ "next": { "key": ["n", "<C-j>"] },
+      \ "prev": { "key": ["N", "<C-k>"] },
       \ }
 
 " --------------- nerdcommenter --------------
@@ -189,7 +192,7 @@ nmap <C-p> :Files<CR>
 nmap <Leader>s :Ack!<CR>
 if executable('ag')
     let g:ackprg = 'ag --vimgrep --ignore node_modules --ignore dist'
-    let g:ackpreview = 15
+    let g:ackpreview = 1
 endif
 
 " search lines in files
