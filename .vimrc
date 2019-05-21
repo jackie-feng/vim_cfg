@@ -317,7 +317,9 @@ imap <c-k> <up>
 imap <c-l> <right>
 
 " \gd                 打开 Git 文件对比模式 [竖直] [GitGutter 插件]
-nmap <leader>gd :Gdiff<cr>
+nmap <leader>gd :Gvdiff<cr>
+" 打开log(~= gloga), 并查看commit。[gitv插件]
+nmap <leader>gg :gitv --all<cr>
 
 " \rt                 一键替换全部 Tab 为空格
 nmap <leader>rt <esc>:retab<cr>
