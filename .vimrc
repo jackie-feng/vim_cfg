@@ -326,3 +326,7 @@ nmap <leader>rt <esc>:retab<cr>
 " 超过120的行宽显示灰色
 highlight ColorColumn guibg=#2d2d2d ctermbg=0
 
+" insert模式下,向下滚屏
+imap <c-e> <esc><c-e>i
+" insert模式下,向上滚屏
+imap <c-y> <esc><c-y>i
