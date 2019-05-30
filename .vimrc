@@ -252,6 +252,8 @@ nmap <Leader>p "*gp
 nmap <Leader><space> :nohlsearch<cr>
 nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
+" 搜索光标所在的关键字
+nnoremap <C-a> :CtrlSF<Space><C-R><C-R>=expand("<cword>")<CR>
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 nnoremap <C-\> gt
 nnoremap <Leader>m :tabc<CR>
@@ -288,6 +290,10 @@ imap <D-P> <esc>:Files<CR>
 " command + /
 imap <D-/> <esc>;cc
 nmap <D-/> ;cc
+
+" macvim 下 command + 1 打开文件树 ps: jetbrains的习惯
+imap <D-1> <esc><leader>t
+nmap <D-1> <leader>t
 
 
 " Ctrl + ]            多选择跳转
