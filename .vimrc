@@ -70,6 +70,7 @@ Plug 'gregsexton/gitv'                                                          
 " Plug 'kien/ctrlp.vim'                                                           " 文件搜索
 Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
 Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
+Plug 'majutsushi/tagbar'                                                        " 文件结构
 
 " 设置项目根目录
 Plug 'airblade/vim-rooter'
@@ -260,6 +261,7 @@ nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
 nnoremap <C-a> :CtrlSF<Space><C-R><C-R>=expand("<cword>")<CR>
+nnoremap <C-s> viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 nnoremap <C-\> gt
 nnoremap <Leader>m :tabc<CR>
@@ -267,6 +269,7 @@ nnoremap <Leader>n :tabnew<CR>
 nnoremap <Leader>d :vsp<CR>
 nnoremap <Leader>D :sp<CR>
 nnoremap <Leader>q :q<CR>
+nnoremap <Leader>2 :TagbarToggle<CR>
 nnoremap <C-m> :tabc<CR>
 nnoremap <C-n> :tabnew<CR>
 nnoremap <tab> <C-W><C-W>
@@ -300,6 +303,8 @@ nmap <D-/> ;cc
 " macvim 下 command + 1 打开文件树 ps: jetbrains的习惯
 imap <D-1> <esc><leader>t
 nmap <D-1> <leader>t
+nmap <D-2> :TagbarToggle<CR>
+imap <D-2> <esc>:TagbarToggle<CR>
 
 
 " Ctrl + ]            多选择跳转
