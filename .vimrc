@@ -30,7 +30,10 @@ set clipboard=unnamed        " 设置剪贴板
 " 关闭preview预览窗口,YCM的预览窗口也可以用g:ycm_autoclose_preview_window_after_insertion配置,详情:help YCM
 set completeopt-=preview
 
+:hi ColorColumn ctermbg=lightgrey guibg=lightgrey
 let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
+" 超过120的行宽显示灰色
+" highlight ColorColumn guibg=#2d2d2d ctermbg=0
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-7,latin1
@@ -84,6 +87,7 @@ Plug 'gosukiwi/vim-atom-dark'
 Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim' " or other package manager
 Plug 'altercation/solarized'
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 
@@ -92,8 +96,10 @@ let ayucolor="light"  " for light version of theme
 let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
 colorscheme molokai
-
 syntax enable
+set background=light
+colorscheme solarized
+
 " ---------- lightline ------------
 let g:lightline = {
       \ 'colorscheme': 'solarized',
@@ -273,7 +279,7 @@ imap <C-S-DOWN> <esc>ddpi
 
 " ------------- macvim 快捷键 -----------
 " command + d
-map <D-d> dd
+map <D-d> dd<esc>
 imap <D-d> <esc>ddi
 " command + shift + f
 nmap <D-F> :CtrlSF<Space>
@@ -329,8 +335,6 @@ nmap <leader>gg :gitv --all<cr>
 
 " \rt                 一键替换全部 Tab 为空格
 nmap <leader>rt <esc>:retab<cr>
-" 超过120的行宽显示灰色
-highlight ColorColumn guibg=#2d2d2d ctermbg=0
 
 " insert模式下,向下滚屏
 imap <c-e> <esc><c-e>i
