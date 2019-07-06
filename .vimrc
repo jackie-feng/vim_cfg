@@ -43,7 +43,14 @@ let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
 filetype plugin indent on
 
-
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set ai
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set sw=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set ts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set sts=4
+autocmd FileType javascript,html,css,xml,ruby set ai
+autocmd FileType javascript,html,css,xml,ruby set sw=2
+autocmd FileType javascript,html,css,xml,ruby set ts=2
+autocmd FileType javascript,html,css,xml,ruby set sts=2
 
 set guioptions-=e
 set guioptions-=l
@@ -68,12 +75,14 @@ Plug 'gregsexton/gitv'                                                          
 Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
 Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
 Plug 'majutsushi/tagbar'                                                        " 文件结构
+Plug 'vim-airline/vim-airline'                                                  " 底部状态栏增强
 
 " 设置项目根目录
 Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-rails'                                                          " rails 插件
 Plug 'vim-ruby/vim-ruby'
 Plug '/usr/local/opt/fzf'
+Plug 'chemzqm/wxapp.vim'                                                        " 小程序
 Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
@@ -256,6 +265,7 @@ nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
 nnoremap <C-a> :CtrlSF<Space><C-R><C-R>=expand("<cword>")<CR>
 nnoremap <C-s> viw
+imap <C-s> <esc>viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 nnoremap <C-\> gt
 nnoremap <Leader>m :tabc<CR>
