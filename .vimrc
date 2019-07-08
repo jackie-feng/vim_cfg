@@ -76,6 +76,7 @@ Plug 'majutsushi/tagbar'                                                        
 Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-rails'                                                          " rails 插件
 Plug 'vim-ruby/vim-ruby'
+Plug 'jparise/vim-graphql'                                                      " graphql 插件
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
@@ -196,7 +197,6 @@ let g:NERDTreeIndicatorMapCustom = {
 " -------------fzf and ag-settings---------------------
 nmap <C-o> :tabnew<CR>:Files<CR>
 nmap <C-p> :Files<CR>
-nmap <Leader>s :Ack!<CR>
 if executable('ag')
     let g:ackprg = 'ag --vimgrep --ignore node_modules --ignore dist'
     let g:ackpreview = 1
@@ -297,23 +297,29 @@ imap <D-L> <esc>v$<left>
 nmap <D-P> :Files<CR>
 imap <D-P> <esc>:Files<CR>
 " command + /
-imap <D-/> <esc>;cc
-nmap <D-/> ;cc
+imap <D-/> <esc><leader>c<space>
+nmap <D-/> <leader>c<space>
 
 " macvim 下 command + 1 打开文件树 ps: jetbrains的习惯
 imap <D-1> <esc><leader>t
 nmap <D-1> <leader>t
 nmap <D-2> :TagbarToggle<CR>
 imap <D-2> <esc>:TagbarToggle<CR>
-
+nmap <D-3> :Gblame<CR>
+imap <D-3> <esc>:Gblame<CR>
+nmap <D-4> :Gvdiff<cr>
+imap <D-4> <esc>:Gvdiff<cr>
+nmap <D-5> :gitv --all<cr>
+imap <D-5> <esc>:gitv --all<cr>
 
 " Ctrl + ]            多选择跳转
 nmap <c-]> g<c-]>
 vmap <c-]> g<c-]>
+imap <c-]> <esc>g<c-]>
 
 " Ctrl + T            跳回原位置
 nmap <c-t> :pop<cr>
-
+imap <c-t> <esc>:pop<cr>i
 " Ctrl + U            简化全能补全按键
 imap <c-u> <c-x><c-o>
 
