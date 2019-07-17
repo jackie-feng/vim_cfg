@@ -108,8 +108,6 @@ let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
 colorscheme molokai
 syntax enable
-set background=light
-colorscheme solarized
 
 " ---------- lightline ------------
 let g:lightline = {
@@ -309,6 +307,7 @@ imap <D-P> <esc>:Files<CR>
 " command + /
 imap <D-/> <esc><leader>c<space>
 nmap <D-/> <leader>c<space>
+vmap <D-/> <leader>c<space>
 
 " macvim 下 command + 1 打开文件树 ps: jetbrains的习惯
 imap <D-1> <esc><leader>t
