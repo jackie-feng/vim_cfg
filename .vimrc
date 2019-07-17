@@ -321,6 +321,8 @@ nmap <D-4> :Gvdiff<cr>
 imap <D-4> <esc>:Gvdiff<cr>
 nmap <D-5> :gitv --all<cr>
 imap <D-5> <esc>:gitv --all<cr>
+" macvim 下enter会关闭tab.
+nmap <cr> :<esc>
 
 " Ctrl + ]            多选择跳转
 nmap <c-]> g<c-]>
