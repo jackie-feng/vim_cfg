@@ -290,7 +290,7 @@ nnoremap <C-n> :tabnew<CR>
 nnoremap <tab> <C-W><C-W>
 nnoremap <C-S-UP> dd<UP>P
 nnoremap <C-S-DOWN> ddp
-nnoremap <C-h> ^
+nnoremap <expr><C-h>     col('.') == 1 ? '^': '0'
 nnoremap <C-l> $
 imap <C-S-UP> <esc>dd<UP>Pi
 imap <C-S-DOWN> <esc>ddpi
