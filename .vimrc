@@ -92,8 +92,8 @@ Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-rails'                                                          " rails 插件
 Plug 'vim-ruby/vim-ruby'
 Plug 'jparise/vim-graphql'                                                      " graphql 插件
-Plug '/usr/local/opt/fzf'
 Plug 'chemzqm/wxapp.vim'                                                        " 小程序
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
