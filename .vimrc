@@ -34,6 +34,13 @@ set completeopt-=preview
 let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
 " 超过120的行宽显示灰色
 " highlight ColorColumn guibg=#2d2d2d ctermbg=0
+
+:hi Comment cterm=italic
+:hi Identifier cterm=italic
+:hi Constant cterm=italic
+:hi Type cterm=italic
+
+
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-7,latin1
