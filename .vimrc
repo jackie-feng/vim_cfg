@@ -34,6 +34,13 @@ set completeopt-=preview
 let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
 " 超过120的行宽显示灰色
 " highlight ColorColumn guibg=#2d2d2d ctermbg=0
+
+:hi Comment cterm=italic
+:hi Identifier cterm=italic
+:hi Constant cterm=italic
+:hi Type cterm=italic
+
+
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-7,latin1
@@ -85,8 +92,8 @@ Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-rails'                                                          " rails 插件
 Plug 'vim-ruby/vim-ruby'
 Plug 'jparise/vim-graphql'                                                      " graphql 插件
-Plug '/usr/local/opt/fzf'
 Plug 'chemzqm/wxapp.vim'                                                        " 小程序
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
@@ -283,7 +290,7 @@ nnoremap <C-n> :tabnew<CR>
 nnoremap <tab> <C-W><C-W>
 nnoremap <C-S-UP> dd<UP>P
 nnoremap <C-S-DOWN> ddp
-nnoremap <C-h> ^
+nnoremap <expr><C-h>     col('.') == 1 ? '^': '0'
 nnoremap <C-l> $
 imap <C-S-UP> <esc>dd<UP>Pi
 imap <C-S-DOWN> <esc>ddpi
