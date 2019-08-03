@@ -46,10 +46,10 @@ let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
 filetype plugin indent on
 
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set ai
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set sw=4
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set ts=4
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml set sts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set ai
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set sw=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set ts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set sts=4
 autocmd FileType javascript,html,css,xml,ruby set ai
 autocmd FileType javascript,html,css,xml,ruby set sw=2
 autocmd FileType javascript,html,css,xml,ruby set ts=2
