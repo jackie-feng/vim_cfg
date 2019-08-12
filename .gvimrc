@@ -14,7 +14,7 @@ set antialias
 set termguicolors
 let ayucolor="mirage"
 let ayucolor="dark"
-set background=light
+set background=dark
 colorscheme solarized
 " colorscheme Tomorrow-Night-Bright
 

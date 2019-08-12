@@ -27,6 +27,10 @@ set updatetime=50
 set mouse=a                  " 鼠标可用
 set clipboard=unnamed        " 设置剪贴板
 
+" 高光光标所在行列
+set cursorcolumn
+set cursorline
+
 " 关闭preview预览窗口,YCM的预览窗口也可以用g:ycm_autoclose_preview_window_after_insertion配置,详情:help YCM
 set completeopt-=preview
 
@@ -229,7 +233,7 @@ nmap <Leader><space> :nohlsearch<cr>
 nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
-nnoremap <C-a> :CtrlSF<Space><C-R><C-R>=expand("<cword>")<CR>
+nnoremap <C-a> :CtrlSF<Space><C-R>=expand("<cword>")<CR>
 nnoremap <C-s> viw
 imap <C-s> <esc>viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
@@ -245,11 +249,22 @@ nnoremap <C-n> :tabnew<CR>
 nnoremap <tab> <C-W><C-W>
 nnoremap <C-S-UP> dd<UP>P
 nnoremap <C-S-DOWN> ddp
-nnoremap <expr><C-h>     col('.') == 1 ? '^': '0'
+nnoremap <expr><C-h> col('.') == 1 ? '^': '0'
 nnoremap <C-l> $
 imap <C-S-UP> <esc>dd<UP>Pi
 imap <C-S-DOWN> <esc>ddpi
 
+function GetFirstPos()
+    let l = getline('.')
+    let c = 0
+    while c < len(l)
+        if l[c] != ' ' && l[c] != '\t'
+            break
+        endif
+        let c = c + 1
+    endwhile
+    call setpos('.', [0, line('.'), c + 1, 0])
+endfunction
 " ------------- macvim 快捷键 -----------
 " command + d
 map <D-d> dd<esc>
@@ -344,12 +359,12 @@ set cmdheight=2
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
-" " don't give |ins-completion-menu| messages.
-" set shortmess+=c
-"
-" " always show signcolumns
-" set signcolumn=yes
-"
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -362,11 +377,11 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-"
-" " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" " Coc only does snippet and additional edit on confirm.
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -374,9 +389,8 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 nmap <c-]> <Plug>(coc-definition)
-nmap <c-i> <Plug>(coc-references)
-"
-"
+" nmap <c-i> <Plug>(coc-references)
+
 " " Use K to show documentation in preview window
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
 "
@@ -387,10 +401,7 @@ nmap <c-i> <Plug>(coc-references)
 "     call CocAction('doHover')
 "   endif
 " endfunction
-"
-" " Add status line support, for integration with other plugin, checkout `:h coc-status`
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-"
+
 " " Using CocList
 " " Show all diagnostics
 " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
