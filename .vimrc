@@ -46,8 +46,6 @@ set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-7,latin1
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set termencoding=utf-8
-" set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
-" set fileencoding=utf-8,gbk,gb18030            "当前编辑的文件编码
 
 let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
@@ -81,7 +79,6 @@ Plug 'sheerun/vim-polyglot'                                                     
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                              " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
-" Plug 'kien/ctrlp.vim'                                                           " 文件搜索
 Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
 Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
 Plug 'majutsushi/tagbar'                                                        " 文件结构
@@ -89,16 +86,12 @@ Plug 'vim-airline/vim-airline'                                                  
 
 " 设置项目根目录
 Plug 'airblade/vim-rooter'
-Plug 'tpope/vim-rails'                                                          " rails 插件
-Plug 'vim-ruby/vim-ruby'
 Plug 'jparise/vim-graphql'                                                      " graphql 插件
 Plug 'chemzqm/wxapp.vim'                                                        " 小程序
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
-" Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-" Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
 " color schema
 Plug 'gosukiwi/vim-atom-dark'
@@ -133,6 +126,17 @@ let g:go_echo_go_info = 0
 
 " --------------- vim-polyglot -----------
 let g:polyglot_disabled = ['markdown']
+
+" -------------fzf and ag-settings---------------------
+nmap <C-o> :tabnew<CR>:Files<CR>
+nmap <C-p> :Files<CR>
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep --ignore node_modules --ignore dist'
+    let g:ackpreview = 1
+endif
+
+" search lines in files
+cnoreabbrev Ack Ack!
 
 " -------------- fzf + ag -----------------
 " 感觉👇下面的 ctrlsf 功能更加强大
@@ -204,21 +208,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
-" --------------- ctrlp ------------------
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-
-" -------------fzf and ag-settings---------------------
-nmap <C-o> :tabnew<CR>:Files<CR>
-nmap <C-p> :Files<CR>
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore node_modules --ignore dist'
-    let g:ackpreview = 1
-endif
-
-" search lines in files
-cnoreabbrev Ack Ack!
-
 " -------------nerd-commenter--------------------
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
@@ -237,35 +226,6 @@ let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_def_mode = 'godef'
 let g:go_decls_includes = "func,type"
 
-" ----------------- ctags -----------------------
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-
 " ------------------ mapping -------------------
 
 nmap <Leader>y "*y
@@ -274,7 +234,7 @@ nmap <Leader><space> :nohlsearch<cr>
 nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
-nnoremap <C-a> :CtrlSF<Space><C-R><C-R>=expand("<cword>")<CR>
+nnoremap <C-a> :CtrlSF<Space><C-R>=expand("<cword>")<CR>
 nnoremap <C-s> viw
 imap <C-s> <esc>viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
@@ -290,7 +250,7 @@ nnoremap <C-n> :tabnew<CR>
 nnoremap <tab> <C-W><C-W>
 nnoremap <C-S-UP> dd<UP>P
 nnoremap <C-S-DOWN> ddp
-nnoremap <expr><C-h>     col('.') == 1 ? '^': '0'
+nnoremap <expr><C-h> col('.') == 1 ? '^': '0'
 nnoremap <C-l> $
 imap <C-S-UP> <esc>dd<UP>Pi
 imap <C-S-DOWN> <esc>ddpi
