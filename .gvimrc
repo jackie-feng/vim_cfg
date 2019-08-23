@@ -1,5 +1,5 @@
 set fileencodings=utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set lines=70 columns=160
+set lines=50 columns=160
 
 set foldenable
 set foldmethod=indent
@@ -13,19 +13,9 @@ set antialias
 
 set termguicolors
 let ayucolor="mirage"
-let ayucolor="dark"
-set background=dark
-colorscheme solarized
-" colorscheme Tomorrow-Night-Bright
+colorscheme onedark
 
 set guifont=Menlo:h15
-" set guifont=Operator\ Mono:h14
-" set guifont=Hack:h16
-" colorscheme atom-dark
-" colorscheme dracula
-" colorscheme spring-night
-" colorscheme onedark
-
 " set cursorline
 
 

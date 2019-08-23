@@ -95,6 +95,7 @@ Plug 'dyng/ctrlsf.vim'                                                          
 
 " color schema
 Plug 'gosukiwi/vim-atom-dark'
+Plug 'joshdick/onedark.vim'
 Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim' " or other package manager
 Plug 'altercation/solarized'
@@ -102,16 +103,16 @@ Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 
+syntax on
 set termguicolors     " enable true colors support
 let ayucolor="light"  " for light version of theme
 let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
-colorscheme molokai
-syntax enable
+colorscheme onedark
 
 " ---------- lightline ------------
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'onedark',
       \ }
 " ------------YouCompleteMe ---------
 let g:ycm_error_symbol = '>>'
