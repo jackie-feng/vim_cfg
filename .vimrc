@@ -27,6 +27,10 @@ set updatetime=50
 set mouse=a                  " 鼠标可用
 set clipboard=unnamed        " 设置剪贴板
 
+" 高光光标所在行列
+set cursorcolumn
+set cursorline
+
 " 关闭preview预览窗口,YCM的预览窗口也可以用g:ycm_autoclose_preview_window_after_insertion配置,详情:help YCM
 set completeopt-=preview
 
@@ -93,6 +97,9 @@ Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
 Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
 
+" coc 参照vscode的lsp client
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " color schema
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'joshdick/onedark.vim'
@@ -114,16 +121,9 @@ colorscheme onedark
 let g:lightline = {
       \ 'colorscheme': 'onedark',
       \ }
-" ------------YouCompleteMe ---------
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>>'
-let g:ycm_auto_trigger = 1   " 自动弹出提示
-" let g:ycm_always_populate_location_list = 1
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
 
-" ------------- gocode ---------------
-let g:go_echo_go_info = 0
+" ----------- coc ---------------
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " --------------- vim-polyglot -----------
 let g:polyglot_disabled = ['markdown']
@@ -256,6 +256,17 @@ nnoremap <C-l> $
 imap <C-S-UP> <esc>dd<UP>Pi
 imap <C-S-DOWN> <esc>ddpi
 
+function GetFirstPos()
+    let l = getline('.')
+    let c = 0
+    while c < len(l)
+        if l[c] != ' ' && l[c] != '\t'
+            break
+        endif
+        let c = c + 1
+    endwhile
+    call setpos('.', [0, line('.'), c + 1, 0])
+endfunction
 " ------------- macvim 快捷键 -----------
 " command + d
 map <D-d> dd<esc>
@@ -332,6 +343,30 @@ imap <c-e> <esc><c-e>i
 imap <c-y> <esc><c-y>i
 
 
+
+
+" ----- coc setting -----
+" 对某些单词禁用补全
+autocmd FileType ruby let b:coc_suggest_blacklist = ['do', "end"]
+" 文件类型映射字典
+let g:coc_filetype_map = {
+    \ 'html.swig': 'html',
+    \ 'wxss': 'css',
+    \ }
+
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -344,3 +379,37 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <c-]> <Plug>(coc-definition)
+" nmap <c-i> <Plug>(coc-references)
+
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+"
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
+
+" " Using CocList
+" " Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
