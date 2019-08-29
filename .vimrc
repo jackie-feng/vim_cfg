@@ -55,10 +55,10 @@ let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
 filetype plugin indent on
 
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set ai
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set sw=4
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set ts=4
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set sts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set ai
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set sw=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set ts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set sts=4
 autocmd FileType javascript,html,css,xml,ruby set ai
 autocmd FileType javascript,html,css,xml,ruby set sw=2
 autocmd FileType javascript,html,css,xml,ruby set ts=2
@@ -83,7 +83,7 @@ Plug 'sheerun/vim-polyglot'                                                     
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                              " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
-Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
+" Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
 Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
 Plug 'majutsushi/tagbar'                                                        " 文件结构
 Plug 'vim-airline/vim-airline'                                                  " 底部状态栏增强
@@ -122,8 +122,16 @@ let g:lightline = {
       \ 'colorscheme': 'onedark',
       \ }
 
+" ------------YouCompleteMe ---------
+let g:ycm_error_symbol = 'E'
+let g:ycm_warning_symbol = 'W'
+let g:ycm_auto_trigger = 1   " 自动弹出提示
+" let g:ycm_always_populate_location_list = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " ----------- coc ---------------
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " --------------- vim-polyglot -----------
 let g:polyglot_disabled = ['markdown']
@@ -236,6 +244,7 @@ nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
 nnoremap <C-a> :CtrlSF<Space><C-R>=expand("<cword>")<CR>
+nmap <C-g> :CtrlSF<Space><C-R>=expand("<cword>")<CR>(<CR>
 nnoremap <C-s> viw
 imap <C-s> <esc>viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
@@ -302,6 +311,11 @@ imap <D-5> <esc>:gitv --all<cr>
 " macvim 下enter会关闭tab.
 nmap <cr> :<esc>
 
+nmap <D-S-UP> dd<UP>P
+nmap <D-S-DOWN> ddp
+imap <D-S-UP> <esc>dd<UP>Pi
+imap <D-S-DOWN> <esc>ddpi
+
 " Ctrl + ]            多选择跳转
 nmap <c-]> g<c-]>
 vmap <c-]> g<c-]>
@@ -346,6 +360,10 @@ imap <c-y> <esc><c-y>i
 
 
 " ----- coc setting -----
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
+
 " 对某些单词禁用补全
 autocmd FileType ruby let b:coc_suggest_blacklist = ['do', "end"]
 " 文件类型映射字典
@@ -372,7 +390,7 @@ set signcolumn=yes
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
-      \ "\<C-u>"
+      \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
@@ -382,15 +400,18 @@ endfunction
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
+nmap <silent> gy :call CocAction('jumpTypeDefinition', 'edit')<CR>
+nmap <silent> gi :call CocAction('jumpImplementation', 'edit')<CR>
+nmap <silent> gr :call CocAction('jumpReferences', 'edit')<CR>
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 
-nmap <c-]> <Plug>(coc-definition)
+nmap <silent> <c-]> :call CocAction('jumpDefinition', 'tab drop')<CR>
 " nmap <c-i> <Plug>(coc-references)
 
 " " Use K to show documentation in preview window

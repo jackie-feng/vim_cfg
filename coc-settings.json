@@ -1,13 +1,14 @@
 {
   "suggest.autoTrigger": "none",
   "suggest.noselect": false,
+  "suggest.timeout": 3000,
   "suggest.enablePreview": true,
   "suggest.minTriggerInputLength": 1,
   "suggest.triggerAfterInsertEnter": true,
   "languageserver": {
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "rootPatterns": ["go.mod"],
       "filetypes": ["go"]
     },
     "ccls": {
@@ -25,6 +26,18 @@
       "args": ["start"],
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
+    },
+    "dart": {
+      "command": "dart_language_server", // in windows is dart_language_server.bat
+      "args": [],
+      "filetypes": ["dart"],
+      "initializationOptions": {},
+      "settings": {
+        "dart": {
+          "validation": {},
+          "completion": {}
+        }
+      }
     }
   }
 }
