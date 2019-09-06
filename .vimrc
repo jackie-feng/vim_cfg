@@ -27,6 +27,11 @@ set updatetime=50
 set mouse=a                  " 鼠标可用
 set clipboard=unnamed        " 设置剪贴板
 
+" 高光光标所在行列
+set cursorcolumn
+set cursorline
+set ignorecase               " 搜索不区分大小写
+
 " 关闭preview预览窗口,YCM的预览窗口也可以用g:ycm_autoclose_preview_window_after_insertion配置,详情:help YCM
 set completeopt-=preview
 
@@ -51,10 +56,10 @@ let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
 filetype plugin indent on
 
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set ai
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set sw=4
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set ts=4
-autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua set sts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set ai
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set sw=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set ts=4
+autocmd FileType php,python,c,java,perl,shell,bash,vim,cpp,wxml,lua,go set sts=4
 autocmd FileType javascript,html,css,xml,ruby set ai
 autocmd FileType javascript,html,css,xml,ruby set sw=2
 autocmd FileType javascript,html,css,xml,ruby set ts=2
@@ -121,9 +126,6 @@ let g:ycm_auto_trigger = 1   " 自动弹出提示
 " let g:ycm_always_populate_location_list = 1
 " let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_autoclose_preview_window_after_insertion = 1
-
-" ------------- gocode ---------------
-let g:go_echo_go_info = 0
 
 " --------------- vim-polyglot -----------
 let g:polyglot_disabled = ['markdown']
@@ -236,6 +238,7 @@ nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
 nnoremap <C-a> :CtrlSF<Space><C-R>=expand("<cword>")<CR>
+nmap <C-g> :CtrlSF<Space><C-R>=expand("<cword>")<CR>(<CR>
 nnoremap <C-s> viw
 imap <C-s> <esc>viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
