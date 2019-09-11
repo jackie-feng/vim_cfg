@@ -137,7 +137,6 @@ let g:ycm_auto_trigger = 1   " 自动弹出提示
 let g:polyglot_disabled = ['markdown']
 
 " -------------fzf and ag-settings---------------------
-nmap <C-o> :tabnew<CR>:Files<CR>
 nmap <C-p> :Files<CR>
 if executable('ag')
     let g:ackprg = 'ag --vimgrep --ignore node_modules --ignore dist'
@@ -239,7 +238,6 @@ let g:go_decls_includes = "func,type"
 
 nmap <Leader>y "*y
 nmap <Leader>p "*gp
-nmap <Leader><space> :nohlsearch<cr>
 nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
@@ -249,13 +247,7 @@ nnoremap <C-s> viw
 imap <C-s> <esc>viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 nnoremap <C-\> gt
-nnoremap <Leader>m :tabc<CR>
 nnoremap <Leader>n :tabnew<CR>
-nnoremap <Leader>d :vsp<CR>
-nnoremap <Leader>D :sp<CR>
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>2 :TagbarToggle<CR>
-nnoremap <C-m> :tabc<CR>
 nnoremap <C-n> :tabnew<CR>
 nnoremap <tab> <C-W><C-W>
 nnoremap <C-S-UP> dd<UP>P
