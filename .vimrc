@@ -100,6 +100,9 @@ Plug 'dyng/ctrlsf.vim'                                                          
 " coc 参照vscode的lsp client
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" WakaTime 统计coding时长
+Plug 'wakatime/vim-wakatime'
+
 " color schema
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'joshdick/onedark.vim'
@@ -229,10 +232,18 @@ let g:gitgutter_sign_modified_removed = '😳'
 
 " ------------------- vim-go -------------------
 
+let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-let g:go_def_mode = 'godef'
+let g:go_metalinter_enabled = ['vet', 'errcheck', 'deadcode']
+let g:go_info_mode = 'gopls'
+let g:go_def_mode = 'gopls'
 let g:go_decls_includes = "func,type"
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
+let g:go_list_height = 10
+let g:go_list_type = "quickfix"
+" au FileType go nmap <leader>r <Plug>(go-def-tab)
 
 " ------------------ mapping -------------------
 
@@ -352,9 +363,6 @@ imap <c-y> <esc><c-y>i
 
 
 " ----- coc setting -----
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
 
 " 对某些单词禁用补全
 autocmd FileType ruby let b:coc_suggest_blacklist = ['do', "end"]
