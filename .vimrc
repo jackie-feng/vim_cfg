@@ -234,11 +234,12 @@ let g:gitgutter_sign_modified_removed = '😳'
 
 let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave = 0
 let g:go_metalinter_autosave_enabled = ['vet', 'errcheck', 'deadcode']
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'deadcode']
 let g:go_info_mode = 'gopls'
 let g:go_def_mode = 'gopls'
+let g:go_def_reuse_buffer = 1
 let g:go_echo_go_info = 1
 let g:go_auto_type_info = 1
 let g:go_decls_includes = "func,type"
@@ -246,8 +247,10 @@ let g:go_decls_includes = "func,type"
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 let g:go_list_height = 10
-let g:go_list_type = "quickfix"
+let g:go_list_type = 'quickfix'
 " au FileType go nmap <leader>r <Plug>(go-def-tab)
+" au FileType go nmap <leader>d <Plug>(go-def-split)
+" au FileType go nmap <leader>g <Plug>(go-def-vertical)
 
 " ------------------ mapping -------------------
 
@@ -322,6 +325,48 @@ nmap <D-S-UP> dd<UP>P
 nmap <D-S-DOWN> ddp
 imap <D-S-UP> <esc>dd<UP>Pi
 imap <D-S-DOWN> <esc>ddpi
+
+if has('gui_vimr')
+    " ------------- vimr 快捷键 -----------
+    " command + d
+    map <M-d> dd<esc>
+    imap <M-d> <esc>ddi
+    " command + shift + f
+    nmap <M-F> :CtrlSF<Space>
+    imap <M-F> <esc>:CtrlSF<Space>
+    " command + shift + h
+    nmap <M-H> v^
+    imap <M-H> <esc>v^
+    " command + shift + l
+    nmap <M-L> v$<left>
+    imap <M-L> <esc>v$<left>
+    " command + shift + p
+    nmap <M-P> :Files<CR>
+    imap <M-P> <esc>:Files<CR>
+    " command + /
+    imap <M-/> <esc><leader>c<space>
+    nmap <M-/> <leader>c<space>
+    vmap <M-/> <leader>c<space>
+
+    " macvim 下 command + 1 打开文件树 ps: jetbrains的习惯
+    imap <M-1> <esc><leader>t
+    nmap <M-1> <leader>t
+    nmap <M-2> :TagbarToggle<CR>
+    imap <M-2> <esc>:TagbarToggle<CR>
+    nmap <M-3> :Gblame<CR>
+    imap <M-3> <esc>:Gblame<CR>
+    nmap <M-4> :Gvdiff<cr>
+    imap <M-4> <esc>:Gvdiff<cr>
+    nmap <M-5> :gitv --all<cr>
+    imap <M-5> <esc>:gitv --all<cr>
+    " macvim 下enter会关闭tab.
+    nmap <cr> :<esc>
+
+    nmap <M-S-UP> dd<UP>P
+    nmap <M-S-DOWN> ddp
+    imap <M-S-UP> <esc>dd<UP>Pi
+    imap <M-S-DOWN> <esc>ddpi
+endif
 
 " Ctrl + ]            多选择跳转
 nmap <c-]> g<c-]>
