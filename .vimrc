@@ -51,6 +51,8 @@ set fileencodings=ucs-bom,utf-7,latin1
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set termencoding=utf-8
 
+let coc_open = 0
+
 let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
 filetype plugin indent on
@@ -98,7 +100,7 @@ Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
 
 " coc 参照vscode的lsp client
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " WakaTime 统计coding时长
 Plug 'wakatime/vim-wakatime'
@@ -233,6 +235,7 @@ let g:gitgutter_sign_modified_removed = '😳'
 " ------------------- vim-go -------------------
 
 let g:go_auto_sameids = 1
+let g:go_addtags_transform = 'camelcase'
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 0
 let g:go_metalinter_autosave_enabled = ['vet', 'errcheck', 'deadcode']
@@ -241,16 +244,19 @@ let g:go_info_mode = 'gopls'
 let g:go_def_mode = 'gopls'
 let g:go_def_reuse_buffer = 1
 let g:go_echo_go_info = 1
-let g:go_auto_type_info = 1
+let g:go_auto_type_info = 0
+au FileType go nmap <C-g> <Plug>(go-info)
 let g:go_decls_includes = "func,type"
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 let g:go_list_height = 10
 let g:go_list_type = 'quickfix'
-" au FileType go nmap <leader>r <Plug>(go-def-tab)
-" au FileType go nmap <leader>d <Plug>(go-def-split)
-" au FileType go nmap <leader>g <Plug>(go-def-vertical)
+if coc_open != 1
+    au FileType go nmap <C-]> <Plug>(go-def-tab)
+    au FileType go nmap <leader>d <Plug>(go-def-split)
+    au FileType go nmap <leader>g <Plug>(go-def-vertical)
+endif
 
 " ------------------ mapping -------------------
 
@@ -260,7 +266,6 @@ nmap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>f :CtrlSF<Space>
 " 搜索光标所在的关键字
 nnoremap <C-a> :CtrlSF<Space><C-R>=expand("<cword>")<CR>
-nmap <C-g> :CtrlSF<Space><C-R>=expand("<cword>")<CR>(<CR>
 nnoremap <C-s> viw
 imap <C-s> <esc>viw
 nnoremap <Leader><Space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
@@ -328,6 +333,7 @@ imap <D-S-DOWN> <esc>ddpi
 
 if has('gui_vimr')
     " ------------- vimr 快捷键 -----------
+    map <M-w> <esc>:q!<cr>
     " command + d
     map <M-d> dd<esc>
     imap <M-d> <esc>ddi
@@ -410,37 +416,14 @@ imap <c-y> <esc><c-y>i
 
 
 
-
-" ----- coc setting -----
-
-" 对某些单词禁用补全
-autocmd FileType ruby let b:coc_suggest_blacklist = ['do', "end"]
-" 文件类型映射字典
-let g:coc_filetype_map = {
-    \ 'html.swig': 'html',
-    \ 'wxss': 'css',
-    \ }
-
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-n>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function Is_coc_open()
+    return coc_open == 1
+endfunction
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -451,35 +434,61 @@ endfunction
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Remap keys for gotos
-nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
-nmap <silent> gy :call CocAction('jumpTypeDefinition', 'edit')<CR>
-nmap <silent> gi :call CocAction('jumpImplementation', 'edit')<CR>
-nmap <silent> gr :call CocAction('jumpReferences', 'edit')<CR>
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
+if coc_open == 1
+    " ----- coc setting -----
 
-nmap <silent> <c-]> :call CocAction('jumpDefinition', 'tab drop')<CR>
-" nmap <c-i> <Plug>(coc-references)
+    " 对某些单词禁用补全
+    autocmd FileType ruby let b:coc_suggest_blacklist = ['do', "end"]
+    " 文件类型映射字典
+    let g:coc_filetype_map = {
+        \ 'html.swig': 'html',
+        \ 'wxss': 'css',
+        \ }
 
-" " Use K to show documentation in preview window
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-"
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
 
-" " Using CocList
-" " Show all diagnostics
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions
-" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands
-" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document
-" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+    " Better display for messages
+    set cmdheight=2
+
+    " You will have bad experience for diagnostic messages when it's default 4000.
+    set updatetime=300
+
+    " don't give |ins-completion-menu| messages.
+    set shortmess+=c
+
+    " always show signcolumns
+    set signcolumn=yes
+
+
+    " Remap keys for gotos
+    nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
+    nmap <silent> gy :call CocAction('jumpTypeDefinition', 'edit')<CR>
+    nmap <silent> gi :call CocAction('jumpImplementation', 'edit')<CR>
+    nmap <silent> gr :call CocAction('jumpReferences', 'edit')<CR>
+    " nmap <silent> gy <Plug>(coc-type-definition)
+    " nmap <silent> gi <Plug>(coc-implementation)
+    " nmap <silent> gr <Plug>(coc-references)
+
+    nmap <silent> <c-]> :call CocAction('jumpDefinition', 'tab drop')<CR>
+    " nmap <c-i> <Plug>(coc-references)
+
+    " " Use K to show documentation in preview window
+    " nnoremap <silent> K :call <SID>show_documentation()<CR>
+    "
+    " function! s:show_documentation()
+    "   if (index(['vim','help'], &filetype) >= 0)
+    "     execute 'h '.expand('<cword>')
+    "   else
+    "     call CocAction('doHover')
+    "   endif
+    " endfunction
+
+    " " Using CocList
+    " " Show all diagnostics
+    " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+    " " Manage extensions
+    " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+    " " Show commands
+    " nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+    " " Find symbol of current document
+    " nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+endif
