@@ -28,8 +28,8 @@ set mouse=a                  " 鼠标可用
 set clipboard=unnamed        " 设置剪贴板
 
 " 高光光标所在行列
-set cursorcolumn
-set cursorline
+" set cursorcolumn " 开启后 mvim 行之间光标移动比较卡顿
+" set cursorline
 
 " 关闭preview预览窗口,YCM的预览窗口也可以用g:ycm_autoclose_preview_window_after_insertion配置,详情:help YCM
 set completeopt-=preview
