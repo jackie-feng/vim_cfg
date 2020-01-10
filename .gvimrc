@@ -6,7 +6,7 @@ set foldmethod=indent
 set foldlevelstart=99
 nnoremap @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')
 
-" set linespace=5
+set linespace=1
 set transparency=1
 set macligatures
 set antialias
@@ -15,7 +15,7 @@ set termguicolors
 let ayucolor="mirage"
 colorscheme onedark
 
-set guifont=Menlo:h15
+set guifont=Menlo:h14
 " set cursorline
 
 

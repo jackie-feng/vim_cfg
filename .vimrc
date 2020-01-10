@@ -51,7 +51,7 @@ set fileencodings=ucs-bom,utf-7,latin1
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set termencoding=utf-8
 
-let coc_open = 0
+let coc_open = 1
 
 let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
@@ -82,7 +82,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                          
 Plug 'airblade/vim-gitgutter'                                                   " 行号显示改动信息
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle'}                   " 文件树git
 Plug 'sheerun/vim-polyglot'                                                     " 语言包
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                              " golang 工具包
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                 " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
 " Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
@@ -100,7 +100,7 @@ Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
 
 " coc 参照vscode的lsp client
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " WakaTime 统计coding时长
 Plug 'wakatime/vim-wakatime'
@@ -418,7 +418,11 @@ imap <c-y> <esc><c-y>i
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-n>"
+if coc_open == 1
+    inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
+else
+    inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-n>"
+end
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function Is_coc_open()
