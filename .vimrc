@@ -333,7 +333,7 @@ imap <D-S-DOWN> <esc>ddpi
 
 if has('gui_vimr')
     " ------------- vimr 快捷键 -----------
-    map <M-w> <esc>:q!<cr>
+    map <M-w> <esc>:wq!<cr>
     " command + d
     map <M-d> dd<esc>
     imap <M-d> <esc>ddi
