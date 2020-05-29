@@ -112,6 +112,7 @@ Plug 'tomasr/molokai'
 Plug 'ayu-theme/ayu-vim' " or other package manager
 Plug 'altercation/solarized'
 Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/seoul256.vim'
 call plug#end()
 
 
@@ -291,6 +292,12 @@ function GetFirstPos()
     endwhile
     call setpos('.', [0, line('.'), c + 1, 0])
 endfunction
+
+function SwitchCase()
+    let l = getline('.')
+    let word = expand("<cword>")
+endfunction
+
 " ------------- macvim 快捷键 -----------
 " command + d
 map <D-d> dd<esc>
