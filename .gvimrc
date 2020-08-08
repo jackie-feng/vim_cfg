@@ -16,8 +16,8 @@ set termguicolors
 let ayucolor="mirage"
 colorscheme onedark
 
-let g:seoul256_background = 256
-colo seoul256
+" let g:seoul256_background = 256
+" colo seoul256
 
 set guifont=Menlo:h14
 " set cursorline
