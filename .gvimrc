@@ -7,14 +7,14 @@ set foldlevelstart=99
 nnoremap @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')
 let &colorcolumn=join(range(121,121),",")  " 超过120的行宽部分颜色不一致
 
-set linespace=1
+set linespace=3
 set transparency=0
 set macligatures
 set antialias
 
 set termguicolors
 let ayucolor="mirage"
-colorscheme onedark
+colorscheme molokai
 
 " let g:seoul256_background = 256
 " colo seoul256

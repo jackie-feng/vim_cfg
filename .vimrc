@@ -27,6 +27,9 @@ set updatetime=50
 set mouse=a                  " 鼠标可用
 set clipboard=unnamed        " 设置剪贴板
 
+set cursorline
+set nowrap
+
 " 高光光标所在行列
 " set cursorcolumn " 开启后 mvim 行之间光标移动比较卡顿
 " set cursorline
@@ -35,7 +38,7 @@ set clipboard=unnamed        " 设置剪贴板
 set completeopt-=preview
 
 :hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
+let &colorcolumn=join(range(121,121),",")  " 超过120的行宽部分颜色不一致
 " 超过120的行宽显示灰色
 " highlight ColorColumn guibg=#2d2d2d ctermbg=0
 
