@@ -85,7 +85,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                          
 Plug 'airblade/vim-gitgutter'                                                   " 行号显示改动信息
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle'}                   " 文件树git
 Plug 'sheerun/vim-polyglot'                                                     " 语言包
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                 " golang 工具包
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                 " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
 " Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
