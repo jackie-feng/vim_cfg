@@ -81,7 +81,7 @@ Plug 'scrooloose/nerdcommenter'                                                 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                          " 文件树
 Plug 'airblade/vim-gitgutter'                                                   " 行号显示改动信息
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle'}                   " 文件树git
-Plug 'sheerun/vim-polyglot'                                                     " 语言包
+" Plug 'sheerun/vim-polyglot'                                                     " 语言包
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                              " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
@@ -317,8 +317,8 @@ imap <D-1> <esc><leader>t
 nmap <D-1> <leader>t
 nmap <D-2> :TagbarToggle<CR>
 imap <D-2> <esc>:TagbarToggle<CR>
-nmap <D-3> :Gblame<CR>
-imap <D-3> <esc>:Gblame<CR>
+nmap <D-3> :Git blame<CR>
+imap <D-3> <esc>:Git blame<CR>
 nmap <D-4> :Gvdiff<cr>
 imap <D-4> <esc>:Gvdiff<cr>
 nmap <D-5> :gitv --all<cr>
