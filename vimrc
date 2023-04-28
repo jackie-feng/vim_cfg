@@ -85,18 +85,14 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle'}                   
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                              " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
-" Plug 'Valloric/YouCompleteMe', { 'do': '~/.vim/plugged/YouCompleteMe/install.sh'}                 " 代码补全
 Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
 " Plug 'majutsushi/tagbar'                                                        " 文件结构
 Plug 'vim-airline/vim-airline'                                                  " 底部状态栏增强
 
 " 设置项目根目录
 Plug 'airblade/vim-rooter'
-Plug 'jparise/vim-graphql'                                                      " graphql 插件
-Plug 'chemzqm/wxapp.vim'                                                        " 小程序
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " { 'on': 'Files' }
-Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'                                                          " 全文搜索插件
 
 " coc 参照vscode的lsp client
@@ -127,38 +123,13 @@ let g:lightline = {
       \ 'colorscheme': 'onedark',
       \ }
 
-" ------------YouCompleteMe ---------
-let g:ycm_error_symbol = 'E'
-let g:ycm_warning_symbol = 'W'
-let g:ycm_auto_trigger = 1   " 自动弹出提示
-" let g:ycm_always_populate_location_list = 1
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-
-" ----------- coc ---------------
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 " --------------- vim-polyglot -----------
 let g:polyglot_disabled = ['markdown']
 
 " -------------fzf and ag-settings---------------------
 nmap <C-p> :Files<CR>
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep --ignore node_modules --ignore dist'
-    let g:ackpreview = 1
-endif
-
-" search lines in files
-cnoreabbrev Ack Ack!
-
-" -------------- fzf + ag -----------------
-" 感觉👇下面的 ctrlsf 功能更加强大
-nnoremap <Leader>\ :Ack!<Space>
-command! -bang -nargs=* Ag
-      \ call fzf#vim#ack(<q-args>,
-      \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-      \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \                 <bang>0)
+" let g:fzf_preview_window = ['right,50%', 'ctrl-/']
+let g:fzf_preview_window = []
 
 " --------------- ctrlsf ----------------
 let g:ctrlsf_context = '-B 2 -A 2'
@@ -315,8 +286,6 @@ vmap <D-/> <leader>c<space>
 " macvim 下 command + 1 打开文件树 ps: jetbrains的习惯
 imap <D-1> <esc><leader>t
 nmap <D-1> <leader>t
-nmap <D-2> :TagbarToggle<CR>
-imap <D-2> <esc>:TagbarToggle<CR>
 nmap <D-3> :Git blame<CR>
 imap <D-3> <esc>:Git blame<CR>
 nmap <D-4> :Gvdiff<cr>
@@ -331,48 +300,6 @@ nmap <D-S-DOWN> ddp
 imap <D-S-UP> <esc>dd<UP>Pi
 imap <D-S-DOWN> <esc>ddpi
 
-if has('gui_vimr')
-    " ------------- vimr 快捷键 -----------
-    map <M-w> <esc>:q!<cr>
-    " command + d
-    map <M-d> dd<esc>
-    imap <M-d> <esc>ddi
-    " command + shift + f
-    nmap <M-F> :CtrlSF<Space>
-    imap <M-F> <esc>:CtrlSF<Space>
-    " command + shift + h
-    nmap <M-H> v^
-    imap <M-H> <esc>v^
-    " command + shift + l
-    nmap <M-L> v$<left>
-    imap <M-L> <esc>v$<left>
-    " command + shift + p
-    nmap <M-P> :Files<CR>
-    imap <M-P> <esc>:Files<CR>
-    " command + /
-    imap <M-/> <esc><leader>c<space>
-    nmap <M-/> <leader>c<space>
-    vmap <M-/> <leader>c<space>
-
-    " macvim 下 command + 1 打开文件树 ps: jetbrains的习惯
-    imap <M-1> <esc><leader>t
-    nmap <M-1> <leader>t
-    nmap <M-2> :TagbarToggle<CR>
-    imap <M-2> <esc>:TagbarToggle<CR>
-    nmap <M-3> :Gblame<CR>
-    imap <M-3> <esc>:Gblame<CR>
-    nmap <M-4> :Gvdiff<cr>
-    imap <M-4> <esc>:Gvdiff<cr>
-    nmap <M-5> :gitv --all<cr>
-    imap <M-5> <esc>:gitv --all<cr>
-    " macvim 下enter会关闭tab.
-    nmap <cr> :<esc>
-
-    nmap <M-S-UP> dd<UP>P
-    nmap <M-S-DOWN> ddp
-    imap <M-S-UP> <esc>dd<UP>Pi
-    imap <M-S-DOWN> <esc>ddpi
-endif
 
 " Ctrl + ]            多选择跳转
 nmap <c-]> g<c-]>
@@ -414,81 +341,12 @@ imap <c-e> <esc><c-e>i
 " insert模式下,向上滚屏
 imap <c-y> <esc><c-y>i
 
-
-
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-n>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function Is_coc_open()
-    return coc_open == 1
-endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-if coc_open == 1
-    " ----- coc setting -----
-
-    " 对某些单词禁用补全
-    autocmd FileType ruby let b:coc_suggest_blacklist = ['do', "end"]
-    " 文件类型映射字典
-    let g:coc_filetype_map = {
-        \ 'html.swig': 'html',
-        \ 'wxss': 'css',
-        \ }
-
-
-    " Better display for messages
-    set cmdheight=2
-
-    " You will have bad experience for diagnostic messages when it's default 4000.
-    set updatetime=300
-
-    " don't give |ins-completion-menu| messages.
-    set shortmess+=c
-
-    " always show signcolumns
-    set signcolumn=yes
-
-
-    " Remap keys for gotos
-    nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
-    nmap <silent> gy :call CocAction('jumpTypeDefinition', 'edit')<CR>
-    nmap <silent> gi :call CocAction('jumpImplementation', 'edit')<CR>
-    nmap <silent> gr :call CocAction('jumpReferences', 'edit')<CR>
-    " nmap <silent> gy <Plug>(coc-type-definition)
-    " nmap <silent> gi <Plug>(coc-implementation)
-    " nmap <silent> gr <Plug>(coc-references)
-
-    nmap <silent> <c-]> :call CocAction('jumpDefinition', 'tab drop')<CR>
-    " nmap <c-i> <Plug>(coc-references)
-
-    " " Use K to show documentation in preview window
-    " nnoremap <silent> K :call <SID>show_documentation()<CR>
-    "
-    " function! s:show_documentation()
-    "   if (index(['vim','help'], &filetype) >= 0)
-    "     execute 'h '.expand('<cword>')
-    "   else
-    "     call CocAction('doHover')
-    "   endif
-    " endfunction
-
-    " " Using CocList
-    " " Show all diagnostics
-    " nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-    " " Manage extensions
-    " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-    " " Show commands
-    " nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-    " " Find symbol of current document
-    " nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-endif
