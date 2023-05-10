@@ -1,6 +1,8 @@
 # vim_cfg
 This is my vim config, you can use macvim instead of vim.
 
+> Deprecated!!! I use neovim now 👉 [jackie-feng/nvim](https://github.com/jackie-feng/nvim)
+
 Move `.vimrc` and `.gvimrc` to your `$HOME`
 
 ## 依赖
