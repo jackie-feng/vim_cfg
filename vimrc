@@ -35,7 +35,7 @@ set clipboard=unnamed        " 设置剪贴板
 set completeopt-=preview
 
 :hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
+"let &colorcolumn=join(range(121,999),",")  " 超过120的行宽部分颜色不一致
 " 超过120的行宽显示灰色
 " highlight ColorColumn guibg=#2d2d2d ctermbg=0
 
@@ -50,8 +50,6 @@ set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-7,latin1
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set termencoding=utf-8
-
-let coc_open = 0
 
 let mapleader=";"
 let g:neocomplcache_enable_at_startup = 1
@@ -85,9 +83,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle'}                   
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }                              " golang 工具包
 Plug 'tpope/vim-fugitive'                                                       " git diff
 Plug 'gregsexton/gitv'                                                          " git log
-Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
+" Plug 'Yggdroot/indentLine'                                                      " 对齐辅助线
 " Plug 'majutsushi/tagbar'                                                        " 文件结构
-Plug 'vim-airline/vim-airline'                                                  " 底部状态栏增强
+" Plug 'vim-airline/vim-airline'                                                  " 底部状态栏增强
 
 " 设置项目根目录
 Plug 'airblade/vim-rooter'
@@ -103,21 +101,20 @@ Plug 'wakatime/vim-wakatime'
 
 " color schema
 Plug 'gosukiwi/vim-atom-dark'
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
 Plug 'tomasr/molokai'
-Plug 'ayu-theme/ayu-vim' " or other package manager
-Plug 'altercation/solarized'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'ayu-theme/ayu-vim' " or other package manager
+" Plug 'altercation/solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'hardhackerlabs/theme-vim', { 'as': 'hardhacker' }
 call plug#end()
 
 
-syntax on
-set termguicolors     " enable true colors support
-let ayucolor="light"  " for light version of theme
-let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
-colorscheme onedark
-
+syntax      enable
+syntax      on
+set         t_Co=256
+" let g:hardhacker_darker = 1et ayucolor="dark"   " for dark version of theme
+colorscheme hardhacker
 " ---------- lightline ------------
 let g:lightline = {
       \ 'colorscheme': 'onedark',
@@ -128,8 +125,8 @@ let g:polyglot_disabled = ['markdown']
 
 " -------------fzf and ag-settings---------------------
 nmap <C-p> :Files<CR>
-" let g:fzf_preview_window = ['right,50%', 'ctrl-/']
-let g:fzf_preview_window = []
+let g:fzf_preview_window = ['right,50%', 'ctrl-/']
+" let g:fzf_preview_window = []
 
 " --------------- ctrlsf ----------------
 let g:ctrlsf_context = '-B 2 -A 2'
@@ -223,12 +220,6 @@ let g:go_decls_includes = "func,type"
 let g:go_def_mapping_enabled = 0
 let g:go_list_height = 10
 let g:go_list_type = 'quickfix'
-if coc_open != 1
-    au FileType go nmap <C-]> <Plug>(go-def-tab)
-    au FileType go nmap <leader>d <Plug>(go-def-split)
-    au FileType go nmap <leader>g <Plug>(go-def-vertical)
-endif
-
 " ------------------ mapping -------------------
 
 nmap <Leader>y "*y

@@ -11,11 +11,5 @@ set transparency=1
 set macligatures
 set antialias
 
-set termguicolors
-let ayucolor="mirage"
-colorscheme onedark
-
 set guifont=Menlo:h15
 " set cursorline
-
-
